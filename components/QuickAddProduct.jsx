@@ -19,6 +19,7 @@ function QuickAddProduct({ product }) {
             dispatch(
                 addToCart({
                     id: product.id,
+                    slug: product.slug,
                     title: product.title,
                     newPrice: product.newPrice,
                     oldPrice: product.oldPrice,
@@ -46,9 +47,9 @@ function QuickAddProduct({ product }) {
                             return (
                                 <div
                                     key={index}
-                                    onClick={() => setSelectedSize(size.id)}
+                                    onClick={() => setSelectedSize({ id: size.id, name: size.name })}
                                     className={`p-1 text-sm font-semibold border cursor-pointer border-slate-200 hover-effect uppercase flex items-center justify-center ${
-                                        selectedSize === size.id ? "bg-blue-600 text-white" : ""
+                                        selectedSize?.id === size.id ? "bg-blue-600 text-white" : ""
                                     }`}
                                 >
                                     {size.name}
@@ -64,9 +65,9 @@ function QuickAddProduct({ product }) {
                         {product.colors.map((color, index) => {
                             return (
                                 <div
-                                    onClick={() => setSelectedColor(color.id)}
+                                    onClick={() => setSelectedColor({ id: color.id, code: color.code, name: color.name })}
                                     key={index}
-                                    className={`size-5 hover:ring-4 border border-black rounded-full cursor-pointer ${selectedColor === color.id ? "ring-4" : ""}`}
+                                    className={`size-5 hover:ring-2 border border-slate-800 rounded-full cursor-pointer ${selectedColor?.id === color.id ? "ring-2" : ""}`}
                                     style={{ backgroundColor: color.code }}
                                 ></div>
                             );

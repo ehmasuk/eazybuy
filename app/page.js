@@ -12,6 +12,7 @@ async function HomePage() {
     const allProducts = await fetchData("/products");
     const allCategories = await fetchData("/categories");
 
+
     return (
         <>
             <div className="container py-5">
@@ -88,14 +89,6 @@ async function HomePage() {
                 {/* new arival section */}
                 <div className="mb-10">
                     <p className="text-3xl mb-4 font-semibold">New arivals</p>
-                    <div className="grid grid-cols-5 gap-4">
-                        <ProductCards data={allProducts} />
-                    </div>
-                </div>
-
-                {/* recoomanded for you */}
-                <div className="mb-10">
-                    <p className="text-3xl mb-4 font-semibold">Recommended for you</p>
                     <div className="grid grid-cols-5 gap-4">
                         <ProductCards data={allProducts} />
                     </div>

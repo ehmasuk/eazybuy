@@ -18,7 +18,7 @@ async function CategoryCards() {
                                     </div>
                                 </div>
                             </Link>
-                            <Link href="/shop" className="font-bold text-lg hover:text-blue-600">
+                            <Link href="/shop" className="font-bold text-center hover:text-blue-600">
                                 {category.name}
                             </Link>
                         </div>

@@ -1,3 +1,4 @@
+import { calcAvrRating } from "@/helpers/helperFunctions";
 import { Rate, Tooltip } from "antd";
 import Image from "next/image";
 import Link from "next/link";
@@ -17,7 +18,7 @@ function ProductCards({ data }) {
                 return (
                     <div key={index} className="group mb-10">
                         <div className="relative p-4 min-h-96 w-full overflow-hidden">
-                            <Link href={`/product/${product.slug}`}>
+                            <Link className="relative" href={`/product/${product.slug}`}>
                                 <Image
                                     src={product.image}
                                     alt="image"
@@ -54,12 +55,12 @@ function ProductCards({ data }) {
                             </div>
                         </div>
                         <Link href={`/product/${product.slug}`}>
-                            <p className="font-semibold mt-3 line-clamp-2">{product.title}</p>
+                            <p title={product.title} className="font-semibold mt-3 line-clamp-2 min-h-[48px]">{product.title}</p>
                         </Link>
                         <div className="flex items-center gap-1 mt-1">
-                            <p>4.5</p>
-                            <Rate disabled defaultValue={4} className="[&_*]:text-sm !-mt-1" />
-                            <p className="text-gray-500 text-xs">45 reviews</p>
+                            <p>{calcAvrRating(product?.reviews)}</p>
+                            <Rate allowHalf disabled defaultValue={calcAvrRating(product?.reviews)} className="[&_*]:text-sm !-mt-1" />
+                            <p className="text-gray-500 text-xs">{product?.reviews?.length || 0} reviews </p>
                         </div>
                         <div className="flex items-center gap-4 mt-1">
                             <p className="text-blue-600 font-semibold text-lg">${product.newPrice}</p>

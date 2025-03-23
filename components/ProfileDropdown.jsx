@@ -12,7 +12,10 @@ function ProfileDropdown({ session }) {
     };
 
     return (
-        <div className="absolute max-h-0 invisible opacity-0 group-hover:max-h-fit group-hover:opacity-100 group-hover:visible overflow-hidden right-0 top-full bg-white shadow-lg z-10 duration-500 ease-in-out w-[280px] rounded-md p-5">
+        <div
+            className="
+        absolute invisible opacity-0 group-hover:opacity-100 group-hover:visible overflow-hidden right-0 top-full bg-white shadow-lg z-10 duration-500 ease-in-out w-[280px] rounded-md p-5"
+        >
             <div className="flex items-center space-x-3 border-b border-gray pb-3 mb-2">
                 <div>
                     <Image className="w-[50px] h-[50px] rounded-md" width={100} height={100} src="https://html.hixstudio.net/ebazer/assets/img/users/user-10.jpg" alt="" />

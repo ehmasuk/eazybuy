@@ -23,13 +23,10 @@ function HeaderTop() {
                         Shop
                     </Link>
                     <Link href="/about" className="text-sm hover:text-blue-600">
-                        About
+                        Contact
                     </Link>
                     <Link href="/about" className="text-sm hover:text-blue-600">
                         Help
-                    </Link>
-                    <Link href="/about" className="text-sm hover:text-blue-600">
-                        Contact
                     </Link>
                 </div>
             </div>

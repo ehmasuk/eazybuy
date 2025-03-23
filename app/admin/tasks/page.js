@@ -4,19 +4,13 @@ function Tasks() {
             <div className="bg-white p-10 rounded shadow">
                 <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
                     <p className="text-xl text-semibold">Tasks</p>
-
                 </div>
                 <div className="my-8">
-                    <div >
+                    <div>
                         <div className="flex flex-col gap-10">
                             <div>
                                 <div className="flex items-center gap-2 mb-4">
-                                    <span
-                                        className="text-lg"
-                                        tabIndex={0}
-                                        role="button"
-                                        draggable="false"
-                                    >
+                                    <span className="text-lg" tabIndex={0} role="button" draggable="false">
                                         <svg stroke="currentColor" fill="currentColor" strokeWidth={0} viewBox="0 0 24 24" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg">
                                             <path fill="none" d="M0 0h24v24H0V0z" />
                                             <path d="M11 18c0 1.1-.9 2-2 2s-2-.9-2-2 .9-2 2-2 2 .9 2 2zm-2-8c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm0-6c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm6 4c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm0 2c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm0 6c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z" />
@@ -26,7 +20,7 @@ function Tasks() {
                                 </div>
                                 <div className="overflow-x-auto">
                                     <table className="table-default table-hover lg:overflow-hidden">
-                                        <tbody >
+                                        <tbody>
                                             <tr data-rfd-draggable-context-id=":red:" data-rfd-draggable-id="da1d38c9-e7ad-4d7d-88d4-bc88e152d10e0">
                                                 <td className="w-[40px] text-lg">
                                                     <span
@@ -307,8 +301,6 @@ function Tasks() {
                                     </button>
                                 </div>
                             </div>
-
-
                         </div>
                     </div>
                 </div>

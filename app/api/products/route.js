@@ -11,8 +11,10 @@ export const GET = async () => {
                 subCategory: true,
                 sizes: true,
                 colors: true,
+                reviews:true,
             },
         });
+
         return NextResponse.json(products, { status: 200 });
     } catch (error) {
         console.log(error);

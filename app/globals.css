@@ -1,7 +1,10 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-
+html,
+body {
+    scroll-behavior: smooth;
+}
 @layer utilities {
     .text-link {
         @apply p-2 relative text-black before:absolute before:h-[1px] before:bg-black before:w-0 before:left-1/2 before:bottom-0 before:hover:w-full before:hover:left-0 before:duration-300;
@@ -26,10 +29,10 @@
     transform: scale(1.05);
 }
 .ant-rate-star-full {
-    color: rgba(255, 102, 0, 0.938) !important;
+    color: #fde047 !important;
 }
-.ant-rate-star-zero {
-    color: #000 !important;
+.ant-rate-star-zero svg {
+    color: #bbbbbbbc !important;
 }
 
 /* loader */

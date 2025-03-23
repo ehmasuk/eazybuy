@@ -12,7 +12,7 @@ const checkCart = () => {
 
 const calcTotalAmount = (cart) => {
     const total = cart.reduce((acc, item) => {
-        acc = +item.newPrice + acc;
+        acc = item.newPrice * item.quantity + acc;
         return acc;
     }, 0);
     return total.toFixed(2);
@@ -36,20 +36,38 @@ const CartSlice = createSlice({
     },
     reducers: {
         addToCart: (state, action) => {
-            const isExits = state.cartItems.some((item) => item.id === action.payload.id);
-            if (!isExits) {
+            const { quantity, ...restProducts } = action.payload;
+
+            const isExits = state.cartItems.some((item) => {
+                const { quantity, ...restCartProducts } = item;
+                return JSON.stringify(restCartProducts) === JSON.stringify(restProducts);
+            });
+
+            if (isExits) {
+                const newItems = state.cartItems.map((item) => {
+                    if (item.id === action.payload.id) {
+                        return { ...item, quantity: action.payload.quantity };
+                    } else {
+                        return item;
+                    }
+                });
+
+                state.cartItems = newItems;
+
+                console.log(newItems);
+            } else {
                 state.cartItems.push(action.payload);
             }
+
             state.totalPrice = calcTotalAmount(state.cartItems);
             setCookie("cartItems", state.cartItems);
         },
         removeFromCart: (state, action) => {
-            state.cartItems = state.cartItems.filter((item) => item.id != action.payload);
+            state.cartItems = state.cartItems.filter((item) => JSON.stringify(item) !== JSON.stringify(action.payload));
             state.totalPrice = calcTotalAmount(state.cartItems);
             setCookie("cartItems", state.cartItems);
         },
         opneSideCart: (state) => {
-            console.log("hi");
             state.isSideCartOpen = true;
         },
         closeSideCart: (state) => {
