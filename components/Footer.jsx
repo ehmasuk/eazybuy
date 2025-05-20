@@ -9,7 +9,7 @@ function Footer() {
     return (
         <div className="py-10 border-t border-slate-200">
             <div className="max-w-7xl mx-auto">
-                <div className="grid grid-cols-4">
+                <div className="grid lg:grid-cols-4 md:grid-cols-2 grid-cols-2"> 
                     <div className="flex flex-col gap-4 p-4 text-sm">
                         <Logo />
                         <p className="max-w-24 leading-relaxed">29 SE 2nd Ave, Miami, Florida 33131, United States</p>

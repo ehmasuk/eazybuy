@@ -16,9 +16,9 @@ function HeroSlider() {
         autoplaySpeed: 5000,
     };
     return (
-        <Slider {...heroSliderSettings}>
+        <Slider {...heroSliderSettings} className="w-full">
             <div>
-                <div className="flex flex-col justify-center p-10 min-h-[60vh] relative">
+                <div className="flex flex-col justify-center p-5 lg:p-10 min-h-[60vh] relative w-full">
                     <Image
                         src="/shop2_home_slider1.jpg"
                         alt="image"
@@ -27,8 +27,8 @@ function HeroSlider() {
                         className="absolute left-0 top-0 w-full h-full object-cover z-[-1]"
                     />
                     <p className="uppercase text-gray-800">Summer sale</p>
-                    <p className="uppercase text-black font-extrabold text-6xl mt-2 mb-8">30% off</p>
-                    <div className="flex gap-8">
+                    <p className="uppercase text-black font-extrabold lg:lg:text-6xl text-4xl mt-2 mb-8">30% off</p>
+                    <div className="lg:flex gap-8">
                         <div className="flex items-start">
                             <p className="uppercase text-black font-extrabold mr-2">Startting at</p>
                             <p className="uppercase text-black font-extrabold text-3xl">$199</p>
@@ -38,7 +38,7 @@ function HeroSlider() {
                 </div>
             </div>
             <div>
-                <div className="flex flex-col justify-center p-10 min-h-[60vh] relative">
+                <div className="flex flex-col justify-center p-5 lg:p-10 min-h-[60vh] relative">
                     <Image
                         src="/shop2_home_slider2.jpg"
                         alt="image"
@@ -47,8 +47,8 @@ function HeroSlider() {
                         className="absolute left-0 top-0 w-full h-full object-cover z-[-1]"
                     />
                     <p className="uppercase text-gray-800">over 200 products in discount</p>
-                    <p className="uppercase text-black font-extrabold text-6xl mt-2 mb-8">great deals</p>
-                    <div className="flex gap-8">
+                    <p className="uppercase text-black font-extrabold lg:text-6xl text-4xl mt-2 mb-8">great deals</p>
+                    <div className="lg:flex gap-8">
                         <div className="flex items-start">
                             <p className="uppercase text-black font-extrabold mr-2">Startting at</p>
                             <p className="uppercase text-black font-extrabold text-3xl">$299</p>
@@ -58,7 +58,7 @@ function HeroSlider() {
                 </div>
             </div>
             <div>
-                <div className="flex flex-col justify-center p-10 min-h-[60vh] relative">
+                <div className="flex flex-col justify-center p-5 lg:p-10 min-h-[60vh] relative">
                     <Image
                         src="/shop2_home_slider3.jpg"
                         alt="image"
@@ -67,8 +67,8 @@ function HeroSlider() {
                         className="absolute left-0 top-0 w-full h-full object-cover z-[-1]"
                     />
                     <p className="uppercase text-gray-800">over 200 products in discount</p>
-                    <p className="uppercase text-black font-extrabold text-6xl mt-2 mb-8">great deals</p>
-                    <div className="flex gap-8">
+                    <p className="uppercase text-black font-extrabold lg:text-6xl text-4xl mt-2 mb-8">great deals</p>
+                    <div className="lg:flex gap-8">
                         <div className="flex items-start">
                             <p className="uppercase text-black font-extrabold mr-2">Startting at</p>
                             <p className="uppercase text-black font-extrabold text-3xl">$299</p>

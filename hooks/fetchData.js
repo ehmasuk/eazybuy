@@ -17,5 +17,7 @@ export const fetchData = async (url) => {
     if (!res.ok) {
         throw new Error("Error fetching from " + url);
     }
-    return await res.json();
+    const result =  await res.json();
+    console.log(result);
+    return result;
 };

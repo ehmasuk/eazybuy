@@ -17,8 +17,8 @@ function ProductCards({ data }) {
             {data?.map((product, index) => {
                 return (
                     <div key={index} className="group mb-10">
-                        <div className="relative p-4 min-h-96 w-full overflow-hidden">
-                            <Link className="relative" href={`/product/${product.slug}`}>
+                        <div className="relative p-4 lg:min-h-96 md:min-h-80 min-h-64  w-full overflow-hidden">
+                            <Link href={`/product/${product.slug}`}>
                                 <Image
                                     src={product.image}
                                     alt="image"
@@ -60,7 +60,7 @@ function ProductCards({ data }) {
                         <div className="flex items-center gap-1 mt-1">
                             <p>{calcAvrRating(product?.reviews)}</p>
                             <Rate allowHalf disabled defaultValue={calcAvrRating(product?.reviews)} className="[&_*]:text-sm !-mt-1" />
-                            <p className="text-gray-500 text-xs">{product?.reviews?.length || 0} reviews </p>
+                            <p className="text-gray-500 text-xs md:block hidden">{product?.reviews?.length || 0} reviews </p>
                         </div>
                         <div className="flex items-center gap-4 mt-1">
                             <p className="text-blue-600 font-semibold text-lg">${product.newPrice}</p>
