@@ -40,7 +40,7 @@ function ProductReviews({ product }) {
                             </div>
 
                             <div className=" min-w-0 flex-1 space-y-3 sm:mt-0 my-5">
-                                {ratingPercenages(product?.reviews).map((item, index) => {
+                                {ratingPercenages(product?.reviews)?.map((item, index) => {
                                     return (
                                         <div key={index} className="flex items-center gap-2">
                                             <p className="w-5 shrink-0 text-start text-sm font-medium leading-none text-gray-900 ">{item.rating}</p>

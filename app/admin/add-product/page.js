@@ -1,15 +1,15 @@
+"use client";
+
 import ProductsForm from "@/components/admin/ProductsForm";
-import { fetchData } from "@/hooks/fetchData";
+import useSWR from "swr";
 
-async function AddProducts() {
+function AddProducts() {
+  const { data: allCategories } = useSWR("/categories");
+  const { data: allSubCategories } = useSWR("/subcategories");
+  const { data: allColors } = useSWR("/colors");
+  const { data: allSizes } = useSWR("/sizes");
 
-    const allCategories = await fetchData("/categories");
-    const allSubCategories = await fetchData("/subcategories");
-    const allColors = await fetchData("/colors");
-    const allSizes = await fetchData("/sizes");
-
-
-    return <ProductsForm allCategories={allCategories} allColors={allColors} allSizes={allSizes} allSubCategories={allSubCategories} />;
+  return <ProductsForm allCategories={allCategories} allColors={allColors} allSizes={allSizes} allSubCategories={allSubCategories} />;
 }
 
 export default AddProducts;

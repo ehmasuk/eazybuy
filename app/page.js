@@ -1,17 +1,22 @@
-import CategoryCards from "@/components/CategoryCards";
+"use client";
 
+import CategoryCards from "@/components/CategoryCards";
 import HeroSlider from "@/components/HeroSlider";
 import NewsLatter from "@/components/NewsLatter";
 import ProductCards from "@/components/ProductCards";
-import { fetchData } from "@/hooks/fetchData";
 import Image from "next/image";
 import Link from "next/link";
 import { FaBars } from "react-icons/fa";
 import { VscChevronRight } from "react-icons/vsc";
+import useSWR from "swr";
 
-async function HomePage() {
-  const allProducts = await fetchData("/products");
-  const allCategories = await fetchData("/categories");
+function HomePage() {
+  const { data: allProducts,error } = useSWR("/products");
+  const { data: allCategories, error: errorCategories } = useSWR("/categories");
+
+  if(error || errorCategories){
+    throw new Error("Something went wrong");
+  }
 
   return (
     <>

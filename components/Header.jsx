@@ -26,7 +26,7 @@ function Header() {
         setIsReady(true)
     },[])
 
-    const { data: session } = useSession();
+    const { data: session,status } = useSession();
 
     return (
         <>
@@ -61,7 +61,7 @@ function Header() {
                     <div>
                         <div className="flex items-center gap-8">
                             <div className="relative group">
-                                {session ? (
+                                {status == 'authenticated' ? (
                                     <>
                                         <Link href="/profile">
                                             <AiOutlineUser className="hover:text-blue-600 " fontSize={25} />
