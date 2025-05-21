@@ -42,22 +42,22 @@ function ProductHeroSection({ product }) {
     };
 
     return (
-        <div className="grid grid-cols-12 gap-10">
-            <div className="col-span-5">
+        <div className="grid lg:grid-cols-12 grid-cols-1 gap-10">
+            <div className="lg:col-span-5">
                 <Image.PreviewGroup>
-                    <div className="grid grid-cols-[120px_auto] gap-5">
+                    <div className="grid grid-cols-[100px_auto] gap-5">
                         <div className="flex flex-col relative gap-3">
                             {product?.gallery?.map((image, index) => {
-                                return <Image key={index} sizes="118px" fill src={image} alt="image" className="border border-blue-100" />;
+                                return <Image key={index} sizes="100px" fill src={image} alt="image" className="border border-blue-100" />;
                             })}
                         </div>
-                        <div>
+                        <div className="w-full">
                             <Image sizes="(min-width: 1340px) 331px, calc(39.63vw - 192px)" fill className="border p-3 border-blue-100" src={product?.image} alt="image" />
                         </div>
                     </div>
                 </Image.PreviewGroup>
             </div>
-            <div className="col-span-7">
+            <div className="lg:col-span-7">
                 <Link href="/" className="hover:text-blue-600 duration-300">
                     {product?.category?.name}
                 </Link>

@@ -2,6 +2,7 @@
 
 import NewsLatter from "@/components/NewsLatter";
 import ProductCards from "@/components/ProductCards";
+import { Skeleton } from "antd";
 import Link from "next/link";
 import useSWR from "swr";
 
@@ -19,7 +20,7 @@ function ShopPage() {
 
         {/* topbar */}
         <div className="row justify-between gap-4 text-sm py-5 mb-5">
-          <div className="row gap-4">
+          <div className="row gap-4 lg:flex hidden">
             <button className="px-4 py-2 hover:border-black border-white border active [&.active]:border-black">
               <Link href="/">All products</Link>
             </button>
@@ -33,14 +34,14 @@ function ShopPage() {
               <Link href="/">Smart watch</Link>
             </button>
           </div>
-          <div className="row lg:gap-10 gap-5">
+          <div className="flex justify-between lg:gap-10 gap-5">
             <div>
-              <label className="row gap-2 cursor-pointer">
+              <label className="flex gap-2 cursor-pointer">
                 <input type="checkbox" />
                 Show only products on sale
               </label>
             </div>
-            <div className="row gap-2">
+            <div className="flex gap-2">
               <p>Sort by</p>
               <select className="border-black border font-bold border-none outline-none w-fit">
                 <option>Select</option>
@@ -58,7 +59,9 @@ function ShopPage() {
         </div>
         {isLoading && (
           <div className="grid lg:grid-cols-5 md:grid-cols-3 sm:grid-cols-2 gap-4">
-            <div className=" bg-gray-200 animate-pulse"></div>
+            {[...Array(10)].map((_, index) => {
+              return <Skeleton key={index} active />;
+            })}
           </div>
         )}
       </div>

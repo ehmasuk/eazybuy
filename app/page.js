@@ -4,6 +4,7 @@ import CategoryCards from "@/components/CategoryCards";
 import HeroSlider from "@/components/HeroSlider";
 import NewsLatter from "@/components/NewsLatter";
 import ProductCards from "@/components/ProductCards";
+import { Skeleton } from "antd";
 import Image from "next/image";
 import Link from "next/link";
 import { FaBars } from "react-icons/fa";
@@ -11,10 +12,10 @@ import { VscChevronRight } from "react-icons/vsc";
 import useSWR from "swr";
 
 function HomePage() {
-  const { data: allProducts,error } = useSWR("/products");
-  const { data: allCategories, error: errorCategories } = useSWR("/categories");
+  const { data: allProducts, error: productError, isLoading: productIsLoading } = useSWR("/products");
+  const { data: allCategories, error: errorCategories, isLoading: categoryIsLoading } = useSWR("/categories");
 
-  if(error || errorCategories){
+  if (productError || errorCategories) {
     throw new Error("Something went wrong");
   }
 
@@ -39,6 +40,13 @@ function HomePage() {
                   </Link>
                 );
               })}
+              {categoryIsLoading && (
+                <div className="p-3">
+            {[...Array(3)].map((_, index) => {
+              return <Skeleton key={index} active />;
+            })}
+                </div>
+              )}
             </div>
           </div>
           {/* carousel */}
@@ -89,6 +97,13 @@ function HomePage() {
           <div className="grid lg:grid-cols-7 md:grid-cols-5 grid-cols-2 gap-4">
             <CategoryCards />
           </div>
+          {categoryIsLoading && (
+            <div className="grid lg:grid-cols-7 md:grid-cols-5 grid-cols-2 gap-4">
+            {[...Array(5)].map((_, index) => {
+              return <Skeleton key={index} active />;
+            })}
+            </div>
+          )}
         </div>
 
         {/* new arival section */}
@@ -97,6 +112,13 @@ function HomePage() {
           <div className="grid lg:grid-cols-5 grid-cols-2 gap-4">
             <ProductCards data={allProducts} />
           </div>
+          {productIsLoading && (
+            <div className="grid lg:grid-cols-5 grid-cols-2 gap-4">
+            {[...Array(10)].map((_, index) => {
+              return <Skeleton key={index} active />;
+            })}
+            </div>
+          )}
         </div>
       </div>
       <NewsLatter />

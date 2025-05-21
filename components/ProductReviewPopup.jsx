@@ -44,7 +44,7 @@ function ProductReviewPopup({ setIsOpen, product }) {
         "/product-review",
         review,
         () => {
-          mutate("/product-review");
+          mutate("/singleproduct?slug=" + product.slug);
           setIsOpen(false);
           message.success("Thank you for your valuable feedback");
         },
