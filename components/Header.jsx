@@ -56,11 +56,6 @@ function Header() {
                   </>
                 )}
               </div>
-              <Link className="flex items-center" href="/wishlist">
-                <Badge count={0} color="blue">
-                  <GoHeart className="hover:text-blue-600" fontSize={25} />
-                </Badge>
-              </Link>
               <button className="flex items-center" onClick={() => dispatch(opneSideCart())}>
                 <Badge count={isReady && cartItems?.length} color="blue">
                   <RiShoppingCartLine className="hover:text-blue-600" fontSize={23} />

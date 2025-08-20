@@ -139,10 +139,7 @@ function ProductHeroSection({ product }) {
                         </div>
                     </div>
                     <div className="flex items-center gap-5 lg:gap-10">
-                        <button className="flex items-center hover:text-blue-600 gap-2 mt-5">
-                            <FaRegHeart fontSize={18} />
-                            Add to wishlist
-                        </button>
+
                         <button className="flex items-center gap-2 hover:text-blue-600 mt-5">
                             <IoChatboxEllipsesOutline fontSize={18} />
                             Ask about product

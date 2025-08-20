@@ -39,11 +39,6 @@ function ProductCards({ data }) {
                             {/* options */}
                             <div className="absolute  -right-[60px] opacity-0 duration-300 group-hover:right-4 group-hover:opacity-100">
                                 <div className="flex flex-col items-center gap-2 text-white">
-                                    <Tooltip placement="left" title="Add to wishlist">
-                                        <button className="size-10 bg-black text-white flex items-center justify-center hover-effect">
-                                            <CiHeart fontSize={20} />
-                                        </button>
-                                    </Tooltip>
                                     <Tooltip placement="left" title="View product">
                                         <Link href={`/product/${product.slug}`}>
                                             <button className="size-10 bg-black text-white flex items-center justify-center hover-effect">
