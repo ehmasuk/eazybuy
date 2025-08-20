@@ -11,9 +11,10 @@ const ShopPage = () => {
     const router = useRouter();
     const searchParams = useSearchParams();
 
-    const params = new URLSearchParams(searchParams);
+    const search = searchParams.get("search");
+    const selectedCategories = searchParams.getAll("category");
 
-    const { data: productsData, error: productsError, isLoading: productsLoading } = useSWR(`/products?${params.toString()}`);
+    const { data: productsData, error: productsError, isLoading: productsLoading } = useSWR(`/products?${searchParams.toString()}`);
     const { data: categories, error: categoriesError } = useSWR("/categories");
     
 
@@ -80,7 +81,7 @@ const ShopPage = () => {
                                     <div key={category.id} className="flex items-center justify-between">
                                         <div className="">
                                             <label htmlFor={category.slug} className="flex items-center gap-2 text-sm cursor-pointer">
-                                                <input type="checkbox" id={category.slug} value={category.slug} onChange={(e) => handleFilterChange("category", e.target.value)} checked={params.getAll("category").includes(category.slug)} />
+                                                <input type="checkbox" id={category.slug} value={category.slug} onChange={(e) => handleFilterChange("category", e.target.value)} checked={selectedCategories.includes(category.slug)} />
                                                 {category.name}
                                             </label>
                                         </div>
@@ -93,21 +94,26 @@ const ShopPage = () => {
                             <h3 className="font-semibold mb-3">Price range</h3>
                             <Slider range defaultValue={[20, 100]} max={1000} onAfterChange={handlePriceChange} />
                             <div className="flex text-semibold justify-between">
-                                <span>${params.get("price")?.split("-")[0] || 20}</span>
-                                <span>${params.get("price")?.split("-")[1] || 100}</span>
+                                <span>${searchParams.get("price")?.split("-")[0] || 20}</span>
+                                <span>${searchParams.get("price")?.split("-")[1] || 100}</span>
                             </div>
                         </div>
 
                     </div>
                     <div className="flex-1">
                         <div className="flex items-center gap-2 mb-6 flex-wrap">
+                            {search && (
+                                <h2 className="text-xl font-semibold">
+                                    Searched for: "{search}"
+                                </h2>
+                            )}
                             <span className="text-sm text-muted-foreground">Active filters:</span>
-                            {params.getAll("category").map(category => (
+                            {selectedCategories.map(category => (
                                 <span key={category} data-slot="badge" className="inline-flex items-center justify-center rounded-md border px-2 py-0.5 text-xs font-medium bg-blue-500 text-white gap-1">
                                     {category}
                                 </span>
                             ))}
-                            {params.toString() && (
+                            {searchParams.toString() && (
                                 <button className="ml-1 hover:text-destructive" onClick={handleReset}>Reset</button>
                             )}
                         </div>
@@ -129,7 +135,7 @@ const ShopPage = () => {
                         <div className="grid lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-1 gap-4">
                             <ProductCards data={productsData?.products} />
                         </div>
-                        <Pagination align="center" current={Number(params.get("page")) || 1} total={productsData?.totalPages * 10} onChange={handlePagination} />
+                        <Pagination align="center" current={Number(searchParams.get("page")) || 1} total={productsData?.totalPages * 10} onChange={handlePagination} />
                     </div>
                 </div>
 
