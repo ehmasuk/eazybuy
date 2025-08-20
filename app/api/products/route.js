@@ -3,19 +3,76 @@ import prisma from "@/prisma/prisma";
 import { NextResponse } from "next/server";
 import slugify from "slugify";
 
-export const GET = async () => {
+
+export const GET = async (req) => {
+    const { searchParams } = new URL(req.url);
+
+    const page = searchParams.get("page") || 1;
+    const limit = searchParams.get("limit") || 10;
+    
+    const subCategory = searchParams.get("subCategory");
+    const price = searchParams.get("price");
+    const sortBy = searchParams.get("sortBy");
+
+    const where = {};
+
+    const categories = searchParams.getAll("category");
+
+    if (categories.length > 0) {
+        where.category = {
+            slug: {
+                in: categories,
+            },
+        };
+    }
+
+    if (subCategory) {
+        where.subCategory = {
+            slug: subCategory,
+        };
+    }
+
+    if (price) {
+        const [min, max] = price.split("-");
+        where.newPrice = {
+            gte: Number(min),
+            lte: Number(max),
+        };
+    }
+
+    const orderBy = {};
+
+    if (sortBy) {
+        const [field, order] = sortBy.split("-");
+        orderBy[field] = order;
+    } else {
+        orderBy.createdAt = "desc";
+    }
+
     try {
         const products = await prisma.products.findMany({
+            where,
             include: {
                 category: true,
                 subCategory: true,
                 sizes: true,
                 colors: true,
-                reviews:true,
+                reviews: true,
             },
+            skip: (page - 1) * limit,
+            take: Number(limit),
+            orderBy,
         });
 
-        return NextResponse.json(products, { status: 200 });
+        const totalProducts = await prisma.products.count({ where });
+
+        return NextResponse.json(
+            {
+                products,
+                totalPages: Math.ceil(totalProducts / limit),
+            },
+            { status: 200 }
+        );
     } catch (error) {
         console.log(error);
         return NextResponse.json({ message: error.message }, { status: 400 });

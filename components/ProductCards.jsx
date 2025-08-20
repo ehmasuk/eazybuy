@@ -7,7 +7,7 @@ import { GoEye } from "react-icons/go";
 import QuickAddProduct from "./QuickAddProduct";
 
 function ProductCards({ data }) {
-    const calCulateDiscount = (oldPrice, newPrice) => {
+    const calculateDiscount = (oldPrice, newPrice) => {
         const discount = ((oldPrice - newPrice) / oldPrice) * 100;
         return Math.round(discount);
     };
@@ -32,8 +32,8 @@ function ProductCards({ data }) {
                             <QuickAddProduct product={product} />
 
                             {/* discount */}
-                            {calCulateDiscount(product?.oldPrice, product?.newPrice) > 0 && (
-                                <p className="absolute top-2 left-2 text-xs text-white bg-blue-600 px-3 py-1">-{calCulateDiscount(product?.oldPrice, product?.newPrice)}%</p>
+                            {calculateDiscount(product?.oldPrice, product?.newPrice) > 0 && (
+                                <p className="absolute top-2 left-2 text-xs text-white bg-blue-600 px-3 py-1">-{calculateDiscount(product?.oldPrice, product?.newPrice)}%</p>
                             )}
 
                             {/* options */}

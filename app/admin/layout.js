@@ -39,10 +39,6 @@ const items = [
         ],
     },
     {
-        key: "/admin/tasks",
-        label: <Link href="/admin/tasks">Tasks</Link>,
-    },
-    {
         key: "/admin/colors",
         label: <Link href="/admin/colors">Colors</Link>,
     },

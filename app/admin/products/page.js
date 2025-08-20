@@ -11,11 +11,11 @@ function Products() {
       <section className="container px-4 mx-auto">
         <div className="flex items-center gap-x-3">
           <h2 className="text-lg font-medium text-gray-800">Products</h2>
-          <span className="px-3 py-1 text-xs text-blue-600 bg-blue-100 rounded-full">{allProducts?.length}</span>
+          <span className="px-3 py-1 text-xs text-blue-600 bg-blue-100 rounded-full">{allProducts?.products?.length}</span>
         </div>
         <div className="flex flex-col mt-6">
           <Table
-            data={allProducts}
+            data={allProducts?.products}
             image={{ value: ["image"] }}
             rows={[
               { label: "Name", value: ["title"] },

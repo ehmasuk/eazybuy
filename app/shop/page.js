@@ -2,72 +2,148 @@
 
 import NewsLatter from "@/components/NewsLatter";
 import ProductCards from "@/components/ProductCards";
-import { Skeleton } from "antd";
-import Link from "next/link";
+
+import { Pagination, Skeleton, Slider, Checkbox } from "antd";
 import useSWR from "swr";
+import { useSearchParams, useRouter } from "next/navigation";
 
-function ShopPage() {
-  const { data, error, isLoading } = useSWR("/products");
+const ShopPage = () => {
+    const router = useRouter();
+    const searchParams = useSearchParams();
 
-  if (error) {
-    throw new Error(error.message || "Something went wrong");
-  }
+    const params = new URLSearchParams(searchParams);
 
-  return (
-    <>
-      <div className="max-w-7xl mx-auto px-4 py-10">
-        <p className="text-3xl mb-5">Shop</p>
+    const { data: productsData, error: productsError, isLoading: productsLoading } = useSWR(`/products?${params.toString()}`);
+    const { data: categories, error: categoriesError } = useSWR("/categories");
+    
 
-        {/* topbar */}
-        <div className="row justify-between gap-4 text-sm py-5 mb-5">
-          <div className="row gap-4 lg:flex hidden">
-            <button className="px-4 py-2 hover:border-black border-white border active [&.active]:border-black">
-              <Link href="/">All products</Link>
-            </button>
-            <button className="px-4 py-2 hover:border-black border-white border [&.active]:border-black">
-              <Link href="/">Mobile</Link>
-            </button>
-            <button className="px-4 py-2 hover:border-black border-white border [&.active]:border-black">
-              <Link href="/">Laptop</Link>
-            </button>
-            <button className="px-4 py-2 hover:border-black border-white border [&.active]:border-black">
-              <Link href="/">Smart watch</Link>
-            </button>
-          </div>
-          <div className="flex justify-between lg:gap-10 gap-5">
-            <div>
-              <label className="flex gap-2 cursor-pointer">
-                <input type="checkbox" />
-                Show only products on sale
-              </label>
+    const handleFilterChange = (filterType, value) => {
+        const params = new URLSearchParams(searchParams);
+
+        if (filterType === "category") {
+            const existingCategories = params.getAll(filterType);
+            if (existingCategories.includes(value)) {
+                const newCategories = existingCategories.filter(category => category !== value);
+                params.delete(filterType);
+                newCategories.forEach(category => params.append(filterType, category));
+            } else {
+                params.append(filterType, value);
+            }
+        } else {
+            if (params.has(filterType, value)) {
+                params.delete(filterType, value);
+            } else {
+                params.append(filterType, value);
+            }
+        }
+        router.push(`?${params.toString()}`);
+    };
+
+    const handlePriceChange = (value) => {
+        const params = new URLSearchParams(searchParams);
+        params.set("price", `${value[0]}-${value[1]}`);
+        router.push(`?${params.toString()}`);
+    };
+
+    const handlePagination = (page) => {
+        const params = new URLSearchParams(searchParams);
+        params.set("page", page);
+        router.push(`?${params.toString()}`);
+    };
+
+    const handleSort = (e) => {
+        const params = new URLSearchParams(searchParams);
+        params.set("sortBy", e.target.value);
+        router.push(`?${params.toString()}`);
+    }
+
+    
+    const handleReset = () => {
+        router.push("?");
+    }
+
+    if (productsError || categoriesError) {
+        throw new Error("Something went wrong");
+    }
+
+    return (
+        <>
+            <div className="max-w-7xl mx-auto px-4 py-10">
+                <div className="flex gap-8">
+                    <div className="hidden lg:block w-80 flex-shrink-0">
+                        <h2 className="font-semibold text-xl mt-4 mb-4">Filter</h2>
+                        <hr className="my-4" />
+                        <div className="mb-6">
+                            <h3 className="font-semibold mb-3">Categories</h3>
+                            <div className="space-y-3">
+                                {categories?.map((category) => (
+                                    <div key={category.id} className="flex items-center justify-between">
+                                        <div className="">
+                                            <label htmlFor={category.slug} className="flex items-center gap-2 text-sm cursor-pointer">
+                                                <input type="checkbox" id={category.slug} value={category.slug} onChange={(e) => handleFilterChange("category", e.target.value)} checked={params.getAll("category").includes(category.slug)} />
+                                                {category.name}
+                                            </label>
+                                        </div>
+                                    </div>
+                                ))}
+                            </div>
+                        </div>
+                        <hr className="my-4" />
+                        <div>
+                            <h3 className="font-semibold mb-3">Price range</h3>
+                            <Slider range defaultValue={[20, 100]} max={1000} onAfterChange={handlePriceChange} />
+                            <div className="flex text-semibold justify-between">
+                                <span>${params.get("price")?.split("-")[0] || 20}</span>
+                                <span>${params.get("price")?.split("-")[1] || 100}</span>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div className="flex-1">
+                        <div className="flex items-center gap-2 mb-6 flex-wrap">
+                            <span className="text-sm text-muted-foreground">Active filters:</span>
+                            {params.getAll("category").map(category => (
+                                <span key={category} data-slot="badge" className="inline-flex items-center justify-center rounded-md border px-2 py-0.5 text-xs font-medium bg-blue-500 text-white gap-1">
+                                    {category}
+                                </span>
+                            ))}
+                            {params.toString() && (
+                                <button className="ml-1 hover:text-destructive" onClick={handleReset}>Reset</button>
+                            )}
+                        </div>
+                        <div className="row justify-between gap-4 text-sm py-5 mb-5">
+                            <p>Showing 1-{productsData?.products?.length} of {productsData?.totalProducts} products</p>
+                            <div className="flex justify-between lg:gap-10 gap-5">
+                                <div className="flex gap-2">
+                                    <p>Sort by</p>
+                                    <select className="border-black border font-bold border-none outline-none w-fit" onChange={handleSort}>
+                                        <option value="">Select</option>
+                                        <option value="newPrice-asc">Price: low to high</option>
+                                        <option value="newPrice-desc">Price: high to low</option>
+                                        <option value="createdAt-desc">Newest</option>
+                                        <option value="createdAt-asc">Oldest</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div className="grid lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-1 gap-4">
+                            <ProductCards data={productsData?.products} />
+                        </div>
+                        <Pagination align="center" current={Number(params.get("page")) || 1} total={productsData?.totalPages * 10} onChange={handlePagination} />
+                    </div>
+                </div>
+
+                {productsLoading && (
+                    <div className="grid lg:grid-cols-5 md:grid-cols-3 sm:grid-cols-2 gap-4">
+                        {[...Array(10)].map((_, index) => {
+                            return <Skeleton key={index} active />;
+                        })}
+                    </div>
+                )}
             </div>
-            <div className="flex gap-2">
-              <p>Sort by</p>
-              <select className="border-black border font-bold border-none outline-none w-fit">
-                <option>Select</option>
-                <option>Price: low to high</option>
-                <option>Price: high to low</option>
-                <option>Newest</option>
-                <option>Oldest</option>
-              </select>
-            </div>
-          </div>
-        </div>
-
-        <div className="grid lg:grid-cols-5 md:grid-cols-3 sm:grid-cols-2 gap-4">
-          <ProductCards data={data} />
-        </div>
-        {isLoading && (
-          <div className="grid lg:grid-cols-5 md:grid-cols-3 sm:grid-cols-2 gap-4">
-            {[...Array(10)].map((_, index) => {
-              return <Skeleton key={index} active />;
-            })}
-          </div>
-        )}
-      </div>
-      <NewsLatter />
-    </>
-  );
+            <NewsLatter />
+        </>
+    );
 }
 
 export default ShopPage;

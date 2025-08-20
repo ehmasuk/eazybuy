@@ -91,9 +91,9 @@ function HomePage() {
           </div>
         </div>
 
-        {/*  categories section */}
+        {/*  Popular Categories section */}
         <div className="mb-10">
-          <p className="text-3xl mb-4 font-semibold">Shop by categories</p>
+          <p className="text-3xl mb-4 font-semibold">Popular Categories</p>
           <div className="grid lg:grid-cols-7 md:grid-cols-5 grid-cols-2 gap-4">
             <CategoryCards />
           </div>
@@ -106,11 +106,11 @@ function HomePage() {
           )}
         </div>
 
-        {/* new arival section */}
+        {/* Popular products section */}
         <div className="mb-10">
-          <p className="text-3xl mb-4 font-semibold">New arivals</p>
+          <p className="text-3xl mb-4 font-semibold">Popular Products</p>
           <div className="grid lg:grid-cols-5 grid-cols-2 gap-4">
-            <ProductCards data={allProducts} />
+            <ProductCards data={allProducts?.products} />
           </div>
           {productIsLoading && (
             <div className="grid lg:grid-cols-5 grid-cols-2 gap-4">
@@ -120,6 +120,41 @@ function HomePage() {
             </div>
           )}
         </div>
+
+        {/* new arival section */}
+        <div className="mb-10">
+          <p className="text-3xl mb-4 font-semibold">New arivals</p>
+          <div className="grid lg:grid-cols-5 grid-cols-2 gap-4">
+            <ProductCards data={allProducts?.products} />
+          </div>
+          {productIsLoading && (
+            <div className="grid lg:grid-cols-5 grid-cols-2 gap-4">
+            {[...Array(10)].map((_, index) => {
+              return <Skeleton key={index} active />;
+            })}
+            </div>
+          )}
+        </div>
+
+        {/* new arival section */}
+        <div className="mb-10">
+          <p className="text-3xl mb-4 font-semibold">New arivals</p>
+          <div className="grid lg:grid-cols-5 grid-cols-2 gap-4">
+            <ProductCards data={allProducts?.products} />
+          </div>
+          {productIsLoading && (
+            <div className="grid lg:grid-cols-5 grid-cols-2 gap-4">
+            {[...Array(10)].map((_, index) => {
+              return <Skeleton key={index} active />;
+            })}
+            </div>
+          )}
+        </div>
+
+
+
+
+
       </div>
       <NewsLatter />
     </>
