@@ -8,6 +8,14 @@ import TextArea from "antd/es/input/TextArea";
 import { useState } from "react";
 import { mutate } from "swr";
 
+const sectionTypes = [
+  { label: "Popular", value: "POPULAR" },
+  { label: "New Arrival", value: "NEW_ARRIVAL" },
+  { label: "Featured", value: "FEATURED" },
+  { label: "Flash Sale", value: "FLASH_SALE" },
+  { label: "Trending", value: "TRENDING" },
+];
+
 function ProductsForm({ allCategories, allColors, allSizes, allSubCategories }) {
   const { postData, loading } = usePost();
 
@@ -19,7 +27,7 @@ function ProductsForm({ allCategories, allColors, allSizes, allSubCategories }) 
   };
 
   const onSuccess = () => {
-    message.success("Category created successfully");
+    message.success("Product created successfully");
     form.resetFields();
     mutate("/products");
   };
@@ -133,6 +141,16 @@ function ProductsForm({ allCategories, allColors, allSizes, allSubCategories }) 
             </FormItem>
           </div>
 
+          {/* Section types */}
+          <div>
+            <p className="mb-2 text-black">
+              Section type <span className="text-gray-500 text-sm">(optional)</span>
+            </p>
+            <FormItem name="sectionTypes">
+              <Select mode="multiple" allowClear size="large" className="w-full" placeholder="Select" options={sectionTypes} />
+            </FormItem>
+          </div>
+
           <div className="col-span-2">
             <div className="grid lg:grid-cols-2 gap-x-20">
               <div>
@@ -169,7 +187,7 @@ function ProductsForm({ allCategories, allColors, allSizes, allSubCategories }) 
         </div>
 
         <button disabled={loading} type="submit" className="bg-violet-600 disabled:opacity-50 text-white rounded px-7 py-2">
-          Add Category
+          Add Product
         </button>
       </div>
     </Form>

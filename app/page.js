@@ -1,22 +1,27 @@
-"use client";
+'use client';
 
-import CategoryCards from "@/components/CategoryCards";
-import HeroSlider from "@/components/HeroSlider";
-import NewsLatter from "@/components/NewsLatter";
-import ProductCards from "@/components/ProductCards";
-import { Skeleton } from "antd";
-import Image from "next/image";
-import Link from "next/link";
-import { FaBars } from "react-icons/fa";
-import { VscChevronRight } from "react-icons/vsc";
-import useSWR from "swr";
+import CategoryCards from '@/components/CategoryCards';
+import HeroSlider from '@/components/HeroSlider';
+import NewsLatter from '@/components/NewsLatter';
+import ProductCards from '@/components/ProductCards';
+import { Skeleton } from 'antd';
+import Image from 'next/image';
+import Link from 'next/link';
+import { FaBars } from 'react-icons/fa';
+import { VscChevronRight } from 'react-icons/vsc';
+import useSWR from 'swr';
 
 function HomePage() {
-  const { data: allProducts, error: productError, isLoading: productIsLoading } = useSWR("/products");
-  const { data: allCategories, error: errorCategories, isLoading: categoryIsLoading } = useSWR("/categories");
+  const { data: popularProducts, isLoading: popularProductsLoading } = useSWR('/products?section=POPULAR');
+  const { data: newArrivalProducts, isLoading: newArrivalProductsLoading } = useSWR('/products?section=NEW_ARRIVAL');
+  const { data: featuredProducts, isLoading: featuredProductsLoading } = useSWR('/products?section=FEATURED');
+  const { data: flashSaleProducts, isLoading: flashSaleProductsLoading } = useSWR('/products?section=FLASH_SALE');
+  const { data: trendingProducts, isLoading: trendingProductsLoading } = useSWR('/products?section=TRENDING');
 
-  if (productError || errorCategories) {
-    throw new Error("Something went wrong");
+  const { data: allCategories, error: errorCategories, isLoading: categoryIsLoading } = useSWR('/categories');
+
+  if (errorCategories) {
+    throw new Error('Something went wrong');
   }
 
   return (
@@ -34,7 +39,7 @@ function HomePage() {
             <div className="divide-gray-200 divide-y-[1px]">
               {allCategories?.map((cat, index) => {
                 return (
-                  <Link href="/" key={index} className="flex gap-2 hover:bg-blue-100 items-center uppercase p-4 bg-white text-slate-800 font-bold text-sm">
+                  <Link href={`/shop?category=${cat.slug}`} key={index} className="flex gap-2 hover:bg-blue-100 items-center uppercase p-4 bg-white text-slate-800 font-bold text-sm">
                     <VscChevronRight fontSize={20} />
                     {cat.name}
                   </Link>
@@ -42,9 +47,9 @@ function HomePage() {
               })}
               {categoryIsLoading && (
                 <div className="p-3">
-            {[...Array(3)].map((_, index) => {
-              return <Skeleton key={index} active />;
-            })}
+                  {[...Array(3)].map((_, index) => {
+                    return <Skeleton key={index} active />;
+                  })}
                 </div>
               )}
             </div>
@@ -99,9 +104,9 @@ function HomePage() {
           </div>
           {categoryIsLoading && (
             <div className="grid lg:grid-cols-7 md:grid-cols-5 grid-cols-2 gap-4">
-            {[...Array(5)].map((_, index) => {
-              return <Skeleton key={index} active />;
-            })}
+              {[...Array(5)].map((_, index) => {
+                return <Skeleton key={index} active />;
+              })}
             </div>
           )}
         </div>
@@ -110,51 +115,76 @@ function HomePage() {
         <div className="mb-10">
           <p className="text-3xl mb-4 font-semibold">Popular Products</p>
           <div className="grid lg:grid-cols-5 grid-cols-2 gap-4">
-            <ProductCards data={allProducts?.products} />
+            <ProductCards data={popularProducts?.products} />
           </div>
-          {productIsLoading && (
+          {popularProductsLoading && (
             <div className="grid lg:grid-cols-5 grid-cols-2 gap-4">
-            {[...Array(10)].map((_, index) => {
-              return <Skeleton key={index} active />;
-            })}
+              {[...Array(10)].map((_, index) => {
+                return <Skeleton key={index} active />;
+              })}
             </div>
           )}
         </div>
 
         {/* new arival section */}
         <div className="mb-10">
-          <p className="text-3xl mb-4 font-semibold">New arivals</p>
+          <p className="text-3xl mb-4 font-semibold">New arrivals</p>
           <div className="grid lg:grid-cols-5 grid-cols-2 gap-4">
-            <ProductCards data={allProducts?.products} />
+            <ProductCards data={newArrivalProducts?.products} />
           </div>
-          {productIsLoading && (
+          {newArrivalProductsLoading && (
             <div className="grid lg:grid-cols-5 grid-cols-2 gap-4">
-            {[...Array(10)].map((_, index) => {
-              return <Skeleton key={index} active />;
-            })}
+              {[...Array(10)].map((_, index) => {
+                return <Skeleton key={index} active />;
+              })}
             </div>
           )}
         </div>
 
-        {/* new arival section */}
+        {/* featured section */}
         <div className="mb-10">
-          <p className="text-3xl mb-4 font-semibold">New arivals</p>
+          <p className="text-3xl mb-4 font-semibold">Featured Products</p>
           <div className="grid lg:grid-cols-5 grid-cols-2 gap-4">
-            <ProductCards data={allProducts?.products} />
+            <ProductCards data={featuredProducts?.products} />
           </div>
-          {productIsLoading && (
+          {featuredProductsLoading && (
             <div className="grid lg:grid-cols-5 grid-cols-2 gap-4">
-            {[...Array(10)].map((_, index) => {
-              return <Skeleton key={index} active />;
-            })}
+              {[...Array(10)].map((_, index) => {
+                return <Skeleton key={index} active />;
+              })}
             </div>
           )}
         </div>
 
+        {/* flash sale section */}
+        <div className="mb-10">
+          <p className="text-3xl mb-4 font-semibold">Flash Sale</p>
+          <div className="grid lg:grid-cols-5 grid-cols-2 gap-4">
+            <ProductCards data={flashSaleProducts?.products} />
+          </div>
+          {flashSaleProductsLoading && (
+            <div className="grid lg:grid-cols-5 grid-cols-2 gap-4">
+              {[...Array(10)].map((_, index) => {
+                return <Skeleton key={index} active />;
+              })}
+            </div>
+          )}
+        </div>
 
-
-
-
+        {/* trending section */}
+        <div className="mb-10">
+          <p className="text-3xl mb-4 font-semibold">Trending Products</p>
+          <div className="grid lg:grid-cols-5 grid-cols-2 gap-4">
+            <ProductCards data={trendingProducts?.products} />
+          </div>
+          {trendingProductsLoading && (
+            <div className="grid lg:grid-cols-5 grid-cols-2 gap-4">
+              {[...Array(10)].map((_, index) => {
+                return <Skeleton key={index} active />;
+              })}
+            </div>
+          )}
+        </div>
       </div>
       <NewsLatter />
     </>

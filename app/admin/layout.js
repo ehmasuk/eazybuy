@@ -36,6 +36,14 @@ const items = [
                 key: "/admin/sub-categories",
                 label: <Link href="/admin/sub-categories">Sub categories</Link>,
             },
+            {
+                key: "/admin/home-categories",
+                label: <Link href="/admin/home-categories">Home categories</Link>,
+            },
+            {
+                key: "/admin/popular-categories",
+                label: <Link href="/admin/popular-categories">Popular categories</Link>,
+            },
         ],
     },
     {

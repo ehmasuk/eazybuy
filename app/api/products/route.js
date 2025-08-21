@@ -14,8 +14,15 @@ export const GET = async (req) => {
   const sortBy = searchParams.get("sortBy");
   const search = searchParams.get("search");
   const title = searchParams.get("title");
+  const section = searchParams.get("section");
 
   const where = {};
+
+  if (section) {
+    where.sectionTypes = {
+      has: section,
+    };
+  }
 
   const categories = searchParams.getAll("category");
 
@@ -48,8 +55,8 @@ export const GET = async (req) => {
 
   if (title) {
     where.title = {
-        contains: title,
-        mode: "insensitive",
+      contains: title,
+      mode: "insensitive",
     };
   }
 
@@ -107,7 +114,7 @@ export const GET = async (req) => {
 };
 
 export const POST = async (req) => {
-  const { title, newPrice, colorIds, sizeIds, oldPrice, categoryId, subCategoryId, description, quantity, shipping, image, gallery } = await req.json();
+  const { title, newPrice, colorIds, sizeIds, oldPrice, categoryId, subCategoryId, description, quantity, shipping, image, gallery, sectionTypes } = await req.json();
 
   if (!title || !newPrice || !gallery || !categoryId || !description || !quantity || !shipping || !image) {
     return NextResponse.json({ message: "Title,newPrice,gallery,categoryId,description,quantity,shipping,image are required" }, { status: 400 });
@@ -146,6 +153,7 @@ export const POST = async (req) => {
         shipping,
         image: uploadedImage.secure_url,
         gallery: galleryToStore,
+        sectionTypes,
       },
     });
 
