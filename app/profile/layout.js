@@ -14,7 +14,7 @@ function layout({ children }) {
         <div>
             <div className="py-10">
                 <div className="container container-fluid relative">
-                    <div className="relative overflow-hidden md:rounded-md shadow dark:shadow-gray-700 h-52 bg-purple-500 bg-center bg-no-repeat bg-cover" />
+                    <div className="relative overflow-hidden md:rounded-md shadow dark:shadow-gray-700 h-52 bg-blue-600 bg-center bg-no-repeat bg-cover" />
                 </div>
                 {/* body */}
                 <div className="container relative md:mt-24 mt-16">
@@ -25,10 +25,7 @@ function layout({ children }) {
                                     <div className="profile-pic text-center mb-5">
                                         <input id="pro-img" name="profile-image" type="file" className="hidden" onchange="loadFile(event)" />
                                         <div>
-                                            <div className="relative h-28 w-28 mx-auto">
-                                                {/* <img src="https://html.hixstudio.net/ebazer/assets/img/users/user-10.jpg" className="rounded-full shadow ring-4 ring-slate-50" id="profile-image" alt /> */}
-                                                <label className="absolute inset-0 cursor-pointer" htmlFor="pro-img" />
-                                            </div>
+
                                             <div className="mt-4">
                                                 <h5 className="text-lg font-semibold">Jesus Zamora</h5>
                                                 <p className="text-slate-800">jesus@hotmail.com</p>
@@ -60,14 +57,6 @@ function layout({ children }) {
                                                     </span>
                                                     <h6 className="mb-0 font-medium">Cart items</h6>
                                                 </Link>
-                                            </li>
-                                            <li className="group">
-                                                <a href="/profile/favorites" className="navbar-link group-[&.active]:text-blue-600 text-slate-800 hover:text-blue-600 flex items-center py-2 rounded">
-                                                    <span className="me-2 mb-0">
-                                                        <CiHeart fontSize={20} />
-                                                    </span>
-                                                    <h6 className="mb-0 font-medium">Favorite items</h6>
-                                                </a>
                                             </li>
                                             <li className="group">
                                                 <button className="navbar-link group-[&.active]:text-blue-600 text-slate-800 hover:text-blue-600 flex items-center py-2 rounded">

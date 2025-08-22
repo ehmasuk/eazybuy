@@ -62,6 +62,10 @@ const items = [
         key: "/admin/reviews",
         label: <Link href="/admin/reviews">Reviews</Link>,
     },
+    {
+        key: "/admin/hero-slider",
+        label: <Link href="/admin/reviews">Hero slider</Link>,
+    },
 ];
 
 function Layout({ children }) {

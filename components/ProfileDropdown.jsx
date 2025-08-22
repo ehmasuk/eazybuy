@@ -2,7 +2,8 @@
 
 import { logoutAction } from "@/actions/authActions";
 import { message } from "antd";
-import Image from "next/image";
+import { FaRegCircleUser } from "react-icons/fa6";
+
 
 function ProfileDropdown({ session }) {
     const handleLogout = async () => {
@@ -18,7 +19,7 @@ function ProfileDropdown({ session }) {
         >
             <div className="flex items-center space-x-3 border-b border-gray pb-3 mb-2">
                 <div>
-                    <Image className="w-[50px] h-[50px] rounded-md" width={100} height={100} src="https://html.hixstudio.net/ebazer/assets/img/users/user-10.jpg" alt="" />
+                    <FaRegCircleUser fontSize={30} className="text-blue-600" />
                 </div>
                 <div>
                     <h5 className="text-base mb-1 leading-none">{session?.user?.name}</h5>

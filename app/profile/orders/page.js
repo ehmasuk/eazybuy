@@ -34,7 +34,7 @@ function Orders() {
                                 $ 320 <span className="text-slate-800">for 2items</span>
                             </td>
                             <td className="px-2 py-3 text-start">
-                                <a href="javascript:void(0)" className="text-orange-500">
+                                <a href="#" className="text-orange-500">
                                     View <i className="mdi mdi-chevron-right" />
                                 </a>
                             </td>
@@ -49,7 +49,7 @@ function Orders() {
                                 $ 800 <span className="text-slate-800">for 1item</span>
                             </td>
                             <td className="px-2 py-3 text-start">
-                                <a href="javascript:void(0)" className="text-orange-500">
+                                <a href="#" className="text-orange-500">
                                     View <i className="mdi mdi-chevron-right" />
                                 </a>
                             </td>
@@ -64,7 +64,7 @@ function Orders() {
                                 $ 800 <span className="text-slate-800">for 1item</span>
                             </td>
                             <td className="px-2 py-3 text-start">
-                                <a href="javascript:void(0)" className="text-orange-500">
+                                <a href="#" className="text-orange-500">
                                     View <i className="mdi mdi-chevron-right" />
                                 </a>
                             </td>

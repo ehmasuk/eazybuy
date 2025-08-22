@@ -1,4 +1,5 @@
 import { AntdRegistry } from "@ant-design/nextjs-registry";
+import NextTopLoader from "nextjs-toploader";
 import "./globals.css";
 
 import MainLayout from "@/components/MainLayout";
@@ -25,7 +26,10 @@ export default function RootLayout({ children }) {
           <StoreProvider>
             <AntdRegistry>
               <body className={plus_jakarta_sans.className}>
-                <MainLayout>{children}</MainLayout>
+                <MainLayout>
+                  <NextTopLoader showSpinner={false} color="rgb(37 99 235)" />
+                  {children}
+                </MainLayout>
               </body>
             </AntdRegistry>
           </StoreProvider>

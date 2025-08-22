@@ -21,6 +21,7 @@
         "motion": "^11.11.17",
         "next": "14.2.13",
         "next-auth": "^5.0.0-beta.22",
+        "nextjs-toploader": "^3.8.16",
         "prisma": "^5.21.1",
         "react": "^18",
         "react-dom": "^18",
