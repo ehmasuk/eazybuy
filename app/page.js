@@ -18,11 +18,8 @@ function HomePage() {
   const { data: flashSaleProducts, isLoading: flashSaleProductsLoading } = useSWR('/products?section=FLASH_SALE');
   const { data: trendingProducts, isLoading: trendingProductsLoading } = useSWR('/products?section=TRENDING');
 
-  const { data: allCategories, error: errorCategories, isLoading: categoryIsLoading } = useSWR('/categories');
-
-  if (errorCategories) {
-    throw new Error('Something went wrong');
-  }
+  const { data: homeCategories, isLoading: homeCategoriesLoading } = useSWR('/home-categories');
+  const { data: popularCategories, isLoading: popularCategoriesLoading } = useSWR('/popular-categories');
 
   return (
     <>
@@ -37,15 +34,15 @@ function HomePage() {
               SHOP BY CATEGORY
             </div>
             <div className="divide-gray-200 divide-y-[1px]">
-              {allCategories?.map((cat, index) => {
+              {homeCategories?.map((cat, index) => {
                 return (
-                  <Link href={`/shop?category=${cat.slug}`} key={index} className="flex gap-2 hover:bg-blue-100 items-center uppercase p-4 bg-white text-slate-800 font-bold text-sm">
-                    <VscChevronRight fontSize={20} />
-                    {cat.name}
+                  <Link href={`/shop?category=${cat.category.slug}`} key={index} className="flex gap-2 hover:bg-blue-100 items-center uppercase p-4 bg-white text-slate-800 font-bold text-sm">
+                    {/* <VscChevronRight fontSize={20} /> */}
+                    {cat.category.name}
                   </Link>
                 );
               })}
-              {categoryIsLoading && (
+              {homeCategoriesLoading && (
                 <div className="p-3">
                   {[...Array(3)].map((_, index) => {
                     return <Skeleton key={index} active />;
@@ -100,9 +97,9 @@ function HomePage() {
         <div className="mb-10">
           <p className="text-3xl mb-4 font-semibold">Popular Categories</p>
           <div className="grid lg:grid-cols-7 md:grid-cols-5 grid-cols-2 gap-4">
-            <CategoryCards />
+            <CategoryCards data={popularCategories} />
           </div>
-          {categoryIsLoading && (
+          {popularCategoriesLoading && (
             <div className="grid lg:grid-cols-7 md:grid-cols-5 grid-cols-2 gap-4">
               {[...Array(5)].map((_, index) => {
                 return <Skeleton key={index} active />;

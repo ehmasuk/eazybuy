@@ -167,3 +167,19 @@ export const POST = async (req) => {
     return NextResponse.json({ message: err.message }, { status: 400 });
   }
 };
+
+export const DELETE = async (req) => {
+  const { searchParams } = new URL(req.url);
+  const id = searchParams.get("id");
+
+  if (!id) {
+    return NextResponse.json({ message: "Id is required" }, { status: 400 });
+  }
+
+  try {
+    await prisma.products.delete({ where: { id } });
+    return NextResponse.json({ message: "Product deleted" }, { status: 200 });
+  } catch (error) {
+    return NextResponse.json({ message: error.message }, { status: 400 });
+  }
+};

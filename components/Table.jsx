@@ -1,4 +1,5 @@
 import Image from "next/image";
+import { CgEye } from "react-icons/cg";
 import { HiOutlineTrash } from "react-icons/hi2";
 import { LiaEditSolid } from "react-icons/lia";
 function Table({ data, rows, image = false, actions = false }) {
@@ -61,6 +62,9 @@ function Table({ data, rows, image = false, actions = false }) {
                           </button>
                           <button className="text-gray-500 transition-items duration-200 hover:text-yellow-500 focus:outline-none">
                             <LiaEditSolid fontSize={20} />
+                          </button>
+                          <button className="text-gray-500 transition-items duration-200 hover:text-yellow-500 focus:outline-none">
+                            <CgEye fontSize={20} />
                           </button>
                         </div>
                       </td>

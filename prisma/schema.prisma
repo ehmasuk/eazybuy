@@ -56,25 +56,27 @@ enum ProductSection {
 }
 
 model categories {
-  id            String          @id @default(auto()) @map("_id") @db.ObjectId
-  name          String          @unique
-  slug          String          @unique
-  image         String
-  products      products[]
-  subCategories subCategories[]
-  createdAt     DateTime        @default(now())
-  updatedAt     DateTime        @updatedAt
+  id              String            @id @default(auto()) @map("_id") @db.ObjectId
+  name            String            @unique
+  slug            String            @unique
+  image           String
+  products        products[]
+  subCategories   subCategories[]
+  createdAt       DateTime          @default(now())
+  updatedAt       DateTime          @updatedAt
+  HomeCategory    HomeCategory[]
+  PopularCategory PopularCategory[]
 }
 
 model subCategories {
-  id               String     @id @default(auto()) @map("_id") @db.ObjectId
-  parentCategoryId String     @db.ObjectId
-  parentCategory   categories @relation(fields: [parentCategoryId], references: [id], onDelete: Cascade, onUpdate: Cascade)
-  name             String     @unique
-  slug             String     @unique
+  id               String            @id @default(auto()) @map("_id") @db.ObjectId
+  parentCategoryId String            @db.ObjectId
+  parentCategory   categories        @relation(fields: [parentCategoryId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  name             String            @unique
+  slug             String            @unique
   image            String
-  createdAt        DateTime   @default(now())
-  updatedAt        DateTime   @updatedAt
+  createdAt        DateTime          @default(now())
+  updatedAt        DateTime          @updatedAt
   products         products[]
 }
 
@@ -131,4 +133,18 @@ model orders {
   status     String
   createdAt  DateTime @default(now())
   updatedAt  DateTime @updatedAt
+}
+
+model HomeCategory {
+  id         String     @id @default(auto()) @map("_id") @db.ObjectId
+  categoryId String     @db.ObjectId
+  category   categories @relation(fields: [categoryId], references: [id])
+  createdAt  DateTime   @default(now())
+}
+
+model PopularCategory {
+  id         String     @id @default(auto()) @map("_id") @db.ObjectId
+  categoryId String     @db.ObjectId
+  category   categories @relation(fields: [categoryId], references: [id])
+  createdAt  DateTime   @default(now())
 }
