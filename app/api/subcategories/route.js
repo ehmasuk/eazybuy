@@ -30,9 +30,7 @@ export const POST = async (req) => {
             return NextResponse.json({ message: "Sub category already exist" }, { status: 400 });
         }
 
-        const uploadedImage = await uploadToCloudinary.uploader.upload(image, {
-            folder: "eazybuy",
-        });
+        const uploadedImage = await uploadToCloudinary(image)
 
         if (!uploadedImage) {
             return res.status(400).json({ message: "Cannot upload image to cloudinary" });
@@ -40,7 +38,7 @@ export const POST = async (req) => {
 
         const slug = name.toLowerCase().replaceAll(" ", "-").trim();
 
-        const subCategory = await prisma.subCategories.create({ data: { name, image: uploadedImage.secure_url, slug, parentCategoryId } });
+        const subCategory = await prisma.subCategories.create({ data: { name, image: uploadedImage, slug, parentCategoryId } });
 
         if (!subCategory) {
             return NextResponse.json({ message: "Something went wrong" }, { status: 400 });

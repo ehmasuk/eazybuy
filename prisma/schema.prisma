@@ -43,7 +43,8 @@ model products {
   sizes         sizes[]          @relation(fields: [sizeIds], references: [id])
   gallery       String[]
   reviews       productReviews[]
-  brand         brands[]
+  brandId       String?          @db.ObjectId
+  brand         brands?          @relation(fields: [brandId], references: [id])
   sectionTypes  ProductSection[] @default([])
 }
 
@@ -66,6 +67,16 @@ model categories {
   updatedAt       DateTime          @updatedAt
   HomeCategory    HomeCategory[]
   PopularCategory PopularCategory[]
+}
+
+model brands {
+  id        String    @id @default(auto()) @map("_id") @db.ObjectId
+  name      String    @unique
+  slug      String    @unique
+  image      String
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  products  products[]
 }
 
 model subCategories {
@@ -113,16 +124,7 @@ model productReviews {
   updatedAt DateTime @updatedAt
 }
 
-model brands {
-  id        String    @id @default(auto()) @map("_id") @db.ObjectId
-  name      String    @unique
-  slug      String    @unique
-  logo      String
-  createdAt DateTime  @default(now())
-  updatedAt DateTime  @updatedAt
-  productId String?   @db.ObjectId
-  products  products? @relation(fields: [productId], references: [id])
-}
+
 
 model orders {
   id         String   @id @default(auto()) @map("_id") @db.ObjectId

@@ -129,13 +129,13 @@ export const POST = async (req) => {
       return NextResponse.json({ message: "Product already exist" }, { status: 400 });
     }
 
-    const uploadedImage = await uploadToCloudinary.uploader.upload(image, { folder: "eazybuy" });
+    const uploadedImage = await uploadToCloudinary(image);
 
     let galleryToStore = [];
 
     for (const image of gallery) {
-      const uploadedImage = await uploadToCloudinary.uploader.upload(image, { folder: "eazybuy" });
-      galleryToStore.push(uploadedImage.secure_url);
+      const uploadedImageurl = await uploadToCloudinary(image);
+      galleryToStore.push(uploadedImageurl);
     }
 
     const product = await prisma.products.create({
@@ -151,7 +151,7 @@ export const POST = async (req) => {
         sizeIds,
         quantity,
         shipping,
-        image: uploadedImage.secure_url,
+        image: uploadedImage,
         gallery: galleryToStore,
         sectionTypes,
       },
